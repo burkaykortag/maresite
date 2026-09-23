@@ -426,21 +426,27 @@ h4 { font-size: 1.3rem; }
   align-items: center;
   justify-content: space-between;
   height: 84px;
-  gap: 24px;
+  gap: 20px;
+  min-width: 0;
 }
 
 .brand-logo {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  text-decoration: none;
+  min-width: 0;
+  flex-shrink: 0;
 }
 
 .brand-logo-text {
   font-family: var(--font-serif);
   font-size: 1.85rem;
   font-weight: 500;
-  letter-spacing: 0.14em;
-  line-height: 1;
+  letter-spacing: 0.12em;
+  line-height: 1.05;
   color: var(--text-light);
+  white-space: nowrap;
 }
 
 .brand-logo-text span {
@@ -451,10 +457,11 @@ h4 { font-size: 1.3rem; }
 .brand-logo-sub {
   font-family: var(--font-sans);
   font-size: 0.62rem;
-  letter-spacing: 0.32em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--color-gold);
-  margin-top: 4px;
+  margin-top: 3px;
+  white-space: nowrap;
 }
 
 .nav-menu {
@@ -497,35 +504,43 @@ h4 { font-size: 1.3rem; }
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+  flex-shrink: 0;
 }
 
 .hamburger-btn {
   display: none;
   flex-direction: column;
   justify-content: center;
-  gap: 6px;
+  align-items: center;
+  gap: 5px;
   width: 40px;
   height: 40px;
   cursor: pointer;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px;
+  flex-shrink: 0;
 }
 
 .hamburger-btn span {
   display: block;
   height: 1.5px;
-  width: 100%;
+  width: 20px;
   background-color: var(--text-light);
   transition: var(--transition);
+  border-radius: 2px;
 }
 
 .hamburger-btn.active span:nth-child(1) {
-  transform: translateY(7.5px) rotate(45deg);
+  transform: translateY(6.5px) rotate(45deg);
 }
 .hamburger-btn.active span:nth-child(2) {
   opacity: 0;
 }
 .hamburger-btn.active span:nth-child(3) {
-  transform: translateY(-7.5px) rotate(-45deg);
+  transform: translateY(-6.5px) rotate(-45deg);
 }
 
 /* Mobile Nav Drawer */
@@ -1609,7 +1624,11 @@ h4 { font-size: 1.3rem; }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive Rules */
+/* ==========================================================================
+   Comprehensive Responsive Rules (Flawless Mobile Experience)
+   ========================================================================== */
+
+/* Tablet & Smaller Laptops (<= 1100px) */
 @media (max-width: 1100px) {
   .nav-menu { display: none; }
   .hamburger-btn { display: flex; }
@@ -1619,24 +1638,282 @@ h4 { font-size: 1.3rem; }
   .gallery-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-@media (max-width: 900px) {
-  .booking-bar { grid-template-columns: 1fr 1fr; gap: 16px; }
-  .booking-item { border-right: none; border-bottom: 1px solid var(--border-light); padding-bottom: 10px; }
-  .booking-bar .btn { grid-column: 1 / -1; }
-  .split-grid, .beach-grid, .contact-grid { grid-template-columns: 1fr; }
-  .story-badge-floating { position: static; margin-top: 20px; max-width: 100%; }
+/* Tablets (<= 992px) */
+@media (max-width: 992px) {
+  .nav-container { height: 74px; }
+  .booking-bar {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 22px 24px;
+  }
+  .booking-item {
+    border-right: none;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 10px;
+    padding-right: 0;
+  }
+  .booking-bar .btn {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-height: 48px;
+  }
+  .split-grid, .beach-grid, .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .story-main-img { height: 420px; }
+  .story-badge-floating {
+    position: static;
+    margin-top: 18px;
+    max-width: 100%;
+  }
   .menu-grid { grid-template-columns: 1fr; }
   .rooms-grid { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 650px) {
+/* Mobile Devices (<= 768px) */
+@media (max-width: 768px) {
   .top-bar { display: none; }
-  .nav-container { height: 72px; }
-  .brand-logo-text { font-size: 1.5rem; }
-  .features-grid, .routes-grid, .gallery-grid, .footer-grid { grid-template-columns: 1fr; }
-  .booking-bar { grid-template-columns: 1fr; }
-  .form-grid { grid-template-columns: 1fr; }
-  .hero-section { min-height: 85vh; }
-  .floating-actions { bottom: 20px; right: 20px; }
-  .floating-btn { width: 48px; height: 48px; }
+  .site-header { padding: 0; }
+  .nav-container {
+    height: 68px;
+    padding-inline: 16px;
+    gap: 10px;
+  }
+  
+  .brand-logo {
+    min-width: 0;
+    flex-shrink: 1;
+    overflow: hidden;
+  }
+  .brand-logo-text {
+    font-size: clamp(1.2rem, 4.4vw, 1.55rem);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    line-height: 1.05;
+  }
+  .brand-logo-sub {
+    font-size: clamp(0.48rem, 1.8vw, 0.58rem);
+    letter-spacing: 0.16em;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  .nav-actions {
+    gap: 8px;
+  }
+  .nav-actions .btn-primary.btn-sm {
+    padding: 8px 14px;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+  }
+  .hamburger-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .hero-section {
+    min-height: calc(100svh - 68px);
+    padding: 50px 16px 75px;
+  }
+  .hero-badge {
+    font-size: 0.72rem;
+    padding: 6px 14px;
+    letter-spacing: 0.12em;
+    line-height: 1.35;
+    text-align: center;
+  }
+  .hero-title {
+    font-size: clamp(2rem, 8.5vw, 3rem);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .hero-desc {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin-bottom: 26px;
+  }
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+    margin-inline: auto;
+    gap: 12px;
+  }
+  .hero-actions .btn {
+    width: 100%;
+    min-height: 48px;
+    padding: 13px 20px;
+  }
+
+  /* Booking bar compact 2-column mobile layout */
+  .booking-bar-wrapper {
+    margin-top: -35px;
+  }
+  .booking-bar {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 18px 16px;
+    border-radius: var(--radius-md);
+  }
+  .booking-item {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .booking-item:nth-child(1) { grid-column: 1; }
+  .booking-item:nth-child(2) { grid-column: 2; }
+  .booking-item:nth-child(3) { grid-column: 1 / -1; }
+  .booking-item:nth-child(4) { grid-column: 1 / -1; }
+  .booking-bar .btn {
+    grid-column: 1 / -1;
+    margin-top: 4px;
+  }
+  .booking-input,
+  .booking-select {
+    font-size: 16px;
+    padding: 8px 10px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xs);
+    background-color: var(--color-warm-surface);
+    min-height: 44px;
+  }
+
+  .features-grid { grid-template-columns: 1fr; gap: 16px; }
+  .feature-card { padding: 24px 20px; border-radius: var(--radius-md); }
+
+  .story-main-img { height: 280px; border-radius: var(--radius-md); }
+  .story-features { grid-template-columns: 1fr; gap: 14px; }
+
+  .room-thumb-wrap { height: 230px; }
+  .room-body { padding: 22px 18px; }
+  .room-title { font-size: 1.45rem; }
+  .room-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .room-footer .btn {
+    width: 100%;
+    min-height: 46px;
+  }
+
+  .bistro-banner {
+    min-height: 320px;
+    padding: 22px 18px;
+    border-radius: var(--radius-md);
+    margin-bottom: 35px;
+  }
+  .menu-tabs-nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+    margin-bottom: 28px;
+    gap: 8px;
+    scrollbar-width: none;
+  }
+  .menu-tabs-nav::-webkit-scrollbar { display: none; }
+  .menu-tab-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 10px 18px;
+    font-size: 0.8rem;
+  }
+  .menu-card { padding: 20px 18px; }
+
+  .beach-features-list { grid-template-columns: 1fr; }
+  .routes-grid { grid-template-columns: 1fr; gap: 18px; }
+  .route-card { padding: 22px 18px; }
+
+  .gallery-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    padding-bottom: 8px;
+    margin-bottom: 24px;
+    gap: 8px;
+    scrollbar-width: none;
+  }
+  .gallery-filters::-webkit-scrollbar { display: none; }
+  .filter-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 8px 16px;
+    font-size: 0.78rem;
+  }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .gallery-item { height: 170px; border-radius: var(--radius-sm); }
+  .gallery-overlay { padding: 14px; opacity: 1; background: linear-gradient(180deg, transparent 35%, rgba(30,27,24,0.9) 100%); }
+
+  .contact-card { padding: 24px 18px; }
+  .map-container, .map-container iframe { min-height: 320px; }
+
+  .form-grid { grid-template-columns: 1fr; gap: 14px; }
+  .modal-window {
+    width: 95%;
+    padding: 26px 18px;
+    border-radius: var(--radius-md);
+  }
+
+  .footer-grid { grid-template-columns: 1fr; gap: 30px; margin-bottom: 35px; }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .floating-actions {
+    bottom: 18px;
+    right: 16px;
+    gap: 10px;
+  }
+  .floating-btn {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* Compact Mobile (<= 420px) */
+@media (max-width: 420px) {
+  .nav-container {
+    height: 64px;
+    padding-inline: 12px;
+    gap: 6px;
+  }
+  .brand-logo-text {
+    font-size: 1.22rem;
+    letter-spacing: 0.05em;
+  }
+  .brand-logo-sub {
+    font-size: 0.46rem;
+    letter-spacing: 0.12em;
+  }
+  .nav-actions {
+    gap: 6px;
+  }
+  .nav-actions .btn-primary.btn-sm {
+    padding: 7px 11px;
+    font-size: 0.68rem;
+    letter-spacing: 0.02em;
+    gap: 4px;
+  }
+  .nav-actions .btn-primary.btn-sm svg {
+    display: none;
+  }
+  .hamburger-btn {
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+  }
+
+  .booking-bar {
+    grid-template-columns: 1fr;
+  }
+  .booking-item:nth-child(1),
+  .booking-item:nth-child(2) {
+    grid-column: 1 / -1;
+  }
 }
