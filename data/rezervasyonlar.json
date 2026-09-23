@@ -1,0 +1,15 @@
+[
+    {
+        "id": "res_6ab2092bd1bf7",
+        "date": "2026-09-22 06:50:51",
+        "fullname": "Ahmet Yılmaz",
+        "phone": "05421234567",
+        "email": "ahmet@example.com",
+        "checkin": "2026-06-01",
+        "checkout": "2026-06-05",
+        "guests": "2 Yetişkin",
+        "room": "Deniz Manzaralı Balkonlu Oda",
+        "note": "Deniz manzaralı yüksek kat tercih ederiz.",
+        "ip": "127.0.0.1"
+    }
+]
