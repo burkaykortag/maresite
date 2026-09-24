@@ -270,7 +270,7 @@ require_once __DIR__ . '/includes/header.php';
       </div>
 
       <!-- Gastronomy Cards -->
-      <div class="cards" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:26px; margin-bottom:50px;">
+      <div class="cards bistro-cards">
         <article class="card" style="background:var(--color-dark-surface); border-radius:var(--radius-md); overflow:hidden; border:1px solid var(--border-dark);">
           <img src="images/04.jpg" alt="Günlük balık ve deniz ürünleri" style="height:250px; width:100%; object-fit:cover;" />
           <div style="padding:28px;">

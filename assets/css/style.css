@@ -2059,3 +2059,37 @@ h4 { font-size: 1.3rem; }
     grid-column: 1 / -1;
   }
 }
+
+/* ==========================================================================
+   Gastronomy / Bistro Cards Responsive Styling
+   ========================================================================== */
+.bistro-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+  margin-bottom: 50px;
+}
+
+@media (max-width: 991px) {
+  .bistro-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .bistro-cards,
+  .cards {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  .bistro-cards .card,
+  .cards .card {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .bistro-cards .card img,
+  .cards .card img {
+    height: 240px !important;
+  }
+}
