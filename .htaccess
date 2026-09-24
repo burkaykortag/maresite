@@ -1,0 +1,11 @@
+﻿# Security headers & file protection
+<FilesMatch "^(install\.sql|installed\.lock|\.gitignore|\.env)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect data directory
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^data/ - [F,L]
+</IfModule>
