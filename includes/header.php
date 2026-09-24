@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/media-helper.php';
 $currentPage = basename($_SERVER['PHP_SELF'], '.php');
 if ($currentPage === 'index' || $currentPage === '') $currentPage = 'anasayfa';
 ?>

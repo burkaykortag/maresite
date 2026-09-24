@@ -3,7 +3,7 @@ $pageTitle = 'Fotoğraf Galerisi | Mare & Monte Hotel & Bistro';
 $pageDesc = 'Mare & Monte Hotel’in odaları, bistro bahçesi, özel plajı, kış salonu ve Ege manzaralarından yüksek çözünürlüklü fotoğraflar.';
 require_once __DIR__ . '/includes/header.php';
 
-$gallery_items = [
+$default_gallery_items = [
     ['img' => 'images/01.jpg', 'cat' => 'plaj', 'catName' => 'Özel Plaj & Manzara', 'title' => 'Denize Sıfır Konum & Midilli Silueti'],
     ['img' => 'images/02.jpg', 'cat' => 'bistro', 'catName' => 'Otel & Bahçe', 'title' => 'Tarihi Dış Cephe & Çınar Bahçesi'],
     ['img' => 'images/03.jpg', 'cat' => 'bistro', 'catName' => 'Bistro & Çınar Bar', 'title' => '450 m² Asırlık Çınar Altında Bistro'],
@@ -18,6 +18,24 @@ $gallery_items = [
     ['img' => 'images/12.jpg', 'cat' => 'kis', 'catName' => 'Kış Salonu', 'title' => '8 Masalık Butik Şömineli Salon'],
     ['img' => 'images/13.jpg', 'cat' => 'plaj', 'catName' => 'Ege Manzaraları', 'title' => 'Altınoluk Sahil ve Gün Batımı']
 ];
+
+$custom_media = get_site_media();
+$gallery_items = [];
+
+// Add custom uploaded items first
+if (!empty($custom_media)) {
+    foreach ($custom_media as $cm) {
+        $gallery_items[] = [
+            'img'     => htmlspecialchars($cm['filepath']),
+            'cat'     => htmlspecialchars($cm['category'] ?? 'galeri'),
+            'catName' => strtoupper(htmlspecialchars($cm['category'] ?? 'Özel Çekim')),
+            'title'   => htmlspecialchars($cm['title'] ?? 'Mare & Monte')
+        ];
+    }
+}
+
+// Merge defaults
+$gallery_items = array_merge($gallery_items, $default_gallery_items);
 ?>
 
 <main>

@@ -6,6 +6,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   initHeader();
   initMobileNav();
+  initHeroSlider();
   initBookingDates();
   initMenuTabs();
   initGalleryFilter();
@@ -13,6 +14,50 @@ document.addEventListener('DOMContentLoaded', () => {
   initModals();
   initBookingForms();
 });
+
+/* -------------------------------------------------------------------------- */
+/* Cinematic Hero Background Slider                                           */
+/* -------------------------------------------------------------------------- */
+function initHeroSlider() {
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots = document.querySelectorAll('.hero-nav-dot');
+  if (slides.length <= 1) return;
+
+  let current = 0;
+  let intervalId = null;
+
+  const showSlide = (index) => {
+    slides.forEach((s, i) => {
+      s.classList.toggle('active', i === index);
+    });
+    dots.forEach((d, i) => {
+      d.classList.toggle('active', i === index);
+    });
+    current = index;
+  };
+
+  const nextSlide = () => {
+    const next = (current + 1) % slides.length;
+    showSlide(next);
+  };
+
+  const startAutoPlay = () => {
+    if (intervalId) clearInterval(intervalId);
+    intervalId = setInterval(nextSlide, 6500);
+  };
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const idx = parseInt(dot.getAttribute('data-slide-index'), 10);
+      if (!isNaN(idx)) {
+        showSlide(idx);
+        startAutoPlay();
+      }
+    });
+  });
+
+  startAutoPlay();
+}
 
 /* -------------------------------------------------------------------------- */
 /* Header Scroll & Glassmorphism                                              */

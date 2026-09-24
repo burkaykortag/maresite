@@ -5,29 +5,80 @@ require_once __DIR__ . '/includes/header.php';
 ?>
 
 <main>
+  <?php $heroSlides = get_hero_slides(); ?>
   <!-- =========================================================================
-       HERO SECTION — WARM & INVITING AEGEAN RETREAT (WIX WH-1061 STYLE)
+       CINEMATIC HERO SECTION — EMOTION-DRIVEN LUXURY RETREAT
        ========================================================================= -->
-  <section class="hero-section" id="anasayfa">
+  <section class="hero-section cinematic-hero" id="anasayfa">
+    <!-- Cinematic Multi-Slide Background -->
+    <div class="hero-slider">
+      <?php foreach ($heroSlides as $idx => $slide): ?>
+        <div class="hero-slide <?php echo $idx === 0 ? 'active' : ''; ?>" style="background-image: url('<?php echo htmlspecialchars($slide['filepath']); ?>');"></div>
+      <?php endforeach; ?>
+    </div>
+
+    <!-- Luxury Ambient Overlays -->
     <div class="hero-overlay-gradient"></div>
+    <div class="hero-overlay-vignette"></div>
+
     <div class="container hero-content">
+      <!-- Location & Concept Eyebrow Badge -->
       <div class="hero-badge">
-        <span data-i18n="hero.badge">Altınoluk · Kaz Dağları · Denize Sıfır · +16 Adult Only</span>
+        <span class="hero-badge-dot"></span>
+        <span data-i18n="hero.badge">+16 Yetişkin Oteli · Altınoluk Denize Sıfır · Kaz Dağları Etekleri · 12 Ay Açık</span>
       </div>
-      <h1 class="hero-title" data-i18n="hero.title">Ege’nin kıyısında yeniden doğan bir hikâye.</h1>
+
+      <!-- Powerful Emotion-Driven Slogan -->
+      <h1 class="hero-title" data-i18n="hero.title">
+        Ege’nin kıyısında, Kaz Dağları’nın kalbinde <em>yeniden doğan</em> bir sessiz lüks hikâyesi.
+      </h1>
+
       <p class="hero-desc" data-i18n="hero.desc">
-        Midilli manzarası, Kaz Dağları’nın bol oksijenli serinliği, 450 m² asırlık çınarın gölgesi ve tamamen yenilenen butik ruhuyla Mare & Monte Hotel & Bistro.
+        Midilli Adası manzarası, 450 m² asırlık çınarların gölgesi, 60 şezlonglu özel plaj ve kışın şömine sıcaklığıyla 1985'ten bugüne uzanan butik bir sığınak.
       </p>
+
+      <!-- Prominent Action CTAs -->
       <div class="hero-actions">
-        <a href="#" data-modal-target="bookingModal" class="btn btn-primary btn-lg">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        <a href="#" data-modal-target="bookingModal" class="btn btn-primary btn-lg btn-hero-cta">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
           <span data-i18n="hero.cta_book">Hemen Rezervasyon Yap</span>
         </a>
         <a href="odalar.php" class="btn btn-secondary btn-lg">
-          <span data-i18n="hero.cta_explore">Odalarımızı Keşfet</span>
+          <span data-i18n="hero.cta_explore">Odalarımızı & Mekânı Keşfet</span>
         </a>
       </div>
+
+      <!-- Ambiance Highlight Micro-Pills -->
+      <div class="hero-ambiance-bar">
+        <div class="ambiance-pill">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"></path><path d="M20 12v8H4v-8"></path><path d="M4 12l8-8 8 8"></path></svg>
+          <span>Denize 0 Metre Özel Plaj</span>
+        </div>
+        <div class="ambiance-pill">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <span>+16 Adult Sükuneti</span>
+        </div>
+        <div class="ambiance-pill">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+          <span>12 Ay Açık / Şömine Keyfi</span>
+        </div>
+        <div class="ambiance-pill">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+          <span>Kaz Dağları Oksijeni</span>
+        </div>
+      </div>
     </div>
+
+    <!-- Cinematic Slider Indicators -->
+    <?php if (count($heroSlides) > 1): ?>
+      <div class="hero-slider-nav">
+        <?php foreach ($heroSlides as $idx => $slide): ?>
+          <button class="hero-nav-dot <?php echo $idx === 0 ? 'active' : ''; ?>" data-slide-index="<?php echo $idx; ?>" aria-label="Görsel <?php echo $idx + 1; ?>">
+            <span></span>
+          </button>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
   </section>
 
   <!-- Quick Booking Search Bar (Wix wh-1061 Style) -->

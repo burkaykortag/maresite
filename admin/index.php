@@ -230,9 +230,13 @@ if ($db) {
 <body>
 
   <header class="admin-navbar">
-    <div style="display:flex; align-items:center; gap:16px;">
+    <div style="display:flex; align-items:center; gap:20px;">
       <span class="brand-logo-text" style="font-size:1.4rem; color:#FFFFFF;">MARE <span style="color:var(--color-gold); font-style:italic;">&</span> MONTE</span>
-      <span style="font-size:0.75rem; background:rgba(200,155,88,0.2); color:var(--color-gold-light); padding:3px 8px; border-radius:4px; text-transform:uppercase;">Rezervasyon Paneli</span>
+      
+      <nav style="display:flex; align-items:center; gap:16px;">
+        <a href="index.php" style="color:var(--color-gold); font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em;">📋 Rezervasyonlar</a>
+        <a href="gorseller.php" style="color:rgba(255,255,255,0.75); font-size:0.85rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em;">🖼️ Görseller & Hero Slider</a>
+      </nav>
     </div>
     <div style="display:flex; align-items:center; gap:14px; font-size:0.85rem;">
       <span style="color:rgba(255,255,255,0.7);"><?php echo htmlspecialchars($_SESSION['admin_name'] ?? 'Admin'); ?></span>
