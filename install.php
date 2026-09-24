@@ -85,17 +85,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['do_install'])) {
                     // Yerel geliştirme ortamı (XAMPP root) kontrolü
                     if ($dbHost === 'localhost' || $dbHost === '127.0.0.1') {
                         try {
-                            $pdo = new PDO("mysql:host={$dbHost};port={$dbPort};charset=utf8mb4", 'root', '', [
+                            $rootPdo = new PDO("mysql:host={$dbHost};port={$dbPort};charset=utf8mb4", 'root', '', [
                                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
                             ]);
-                            $pdo->exec("CREATE DATABASE IF NOT EXISTS `{$dbName}` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
-                            $pdo->exec("USE `{$dbName}`");
+                            $rootPdo->exec("CREATE DATABASE IF NOT EXISTS `{$dbName}` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+                            $rootPdo->exec("CREATE USER IF NOT EXISTS '{$dbUser}'@'localhost' IDENTIFIED BY '{$dbPass}'");
+                            $rootPdo->exec("ALTER USER '{$dbUser}'@'localhost' IDENTIFIED BY '{$dbPass}'");
+                            $rootPdo->exec("GRANT ALL PRIVILEGES ON `{$dbName}`.* TO '{$dbUser}'@'localhost'");
+                            $rootPdo->exec("CREATE USER IF NOT EXISTS '{$dbUser}'@'127.0.0.1' IDENTIFIED BY '{$dbPass}'");
+                            $rootPdo->exec("ALTER USER '{$dbUser}'@'127.0.0.1' IDENTIFIED BY '{$dbPass}'");
+                            $rootPdo->exec("GRANT ALL PRIVILEGES ON `{$dbName}`.* TO '{$dbUser}'@'127.0.0.1'");
+                            $rootPdo->exec("FLUSH PRIVILEGES");
+
+                            // Şimdi oluşturulan kullanıcıyla bağlan
+                            $pdo = new PDO("mysql:host={$dbHost};port={$dbPort};dbname={$dbName};charset=utf8mb4", $dbUser, $dbPass, [
+                                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+                            ]);
                             $connectionSuccess = true;
                         } catch (PDOException $eLocal) {
-                            throw new Exception("MySQL Bağlantı Hatası: " . $eDb->getMessage());
+                            throw new Exception("MySQL Bağlantı Hatası: '{$dbUser}' kullanıcısı doğrulanamadı. (" . $eDb->getMessage() . ")\nİpucu: Yerel test için Kullanıcı Adı: 'root', Şifre: (boş) girerek de kurabilirsiniz.");
                         }
                     } else {
-                        throw new Exception("MySQL Bağlantı Hatası: " . $eDb->getMessage());
+                        throw new Exception("MySQL Yetki / Bağlantı Hatası: '{$dbUser}' kullanıcısı ile MySQL'e erişilemedi.\n📌 Canlı Sunucu (cPanel / Plesk) Kontrol Listesi:\n1. cPanel > 'MySQL Veritabanları' bölümünden '{$dbName}' adında bir veritabanı oluşturunuz.\n2. Aynı sayfadan '{$dbUser}' kullanıcısını oluşturup şifresini giriniz.\n3. 'Veritabanına Kullanıcı Ekle' bölümünden kullanıcıyı veritabanına bağlayıp 'Tüm Yetkiler' (All Privileges) kutusunu işaretleyiniz.\n(Hata kodu: " . $eDb->getMessage() . ")");
                     }
                 }
             }
@@ -518,7 +530,7 @@ PHP;
       <?php if ($error): ?>
         <div class="alert alert-error">
           <i class="fa-solid fa-triangle-exclamation" style="margin-right: 6px;"></i>
-          <?= htmlspecialchars($error) ?>
+          <?= nl2br(htmlspecialchars($error)) ?>
         </div>
       <?php endif; ?>
 
