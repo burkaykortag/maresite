@@ -1,14 +1,14 @@
-<?php
+﻿<?php
 /**
  * Mare & Monte Hotel & Bistro — Database Connection Helper
- * Production Database: maresite
- * Altinoluk / Edremit / Kaz Daglari
+ * Production Database: mareotel
+ * Altınoluk / Edremit / Kaz Dağları
  */
 
 if (!defined('DB_HOST')) define('DB_HOST', 'localhost');
-if (!defined('DB_NAME')) define('DB_NAME', 'maresite');
-if (!defined('DB_USER')) define('DB_USER', 'maresite');
-if (!defined('DB_PASS')) define('DB_PASS', 'Maresite1122334455..');
+if (!defined('DB_NAME')) define('DB_NAME', 'mareotel');
+if (!defined('DB_USER')) define('DB_USER', 'mareotel');
+if (!defined('DB_PASS')) define('DB_PASS', 'Maremonte1122334455..');
 if (!defined('DB_CHARSET')) define('DB_CHARSET', 'utf8mb4');
 
 /**
@@ -42,8 +42,14 @@ function getDB() {
                 $pdo = new PDO($fallbackDsn, 'root', '', $options);
                 return $pdo;
             } catch (PDOException $e2) {
-                error_log('DB Fallback Connection Error: ' . $e2->getMessage());
-                return null;
+                try {
+                    $fallbackDsn2 = 'mysql:host=localhost;dbname=maremonte;charset=' . DB_CHARSET;
+                    $pdo = new PDO($fallbackDsn2, 'root', '', $options);
+                    return $pdo;
+                } catch (PDOException $e3) {
+                    error_log('DB Connection Error: ' . $e->getMessage());
+                    return null;
+                }
             }
         }
         error_log('DB Connection Error: ' . $e->getMessage());

@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Fallback default admin credentials if DB is not yet installed or connection offline
-        if (!$authenticated && $username === 'admin' && $password === 'Maremonte2026!') {
+        if (!$authenticated && $username === 'admin' && ($password === 'admin' || $password === 'Maremonte2026!')) {
             $authenticated = true;
             $adminName = 'Mare & Monte Yönetim';
         }
